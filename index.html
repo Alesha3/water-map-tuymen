@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Карта</title>
 <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet"/>
-<link rel="stylesheet" href="./css/style_index.css">
+<link rel="stylesheet" href="style_index.css">
 <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
 </head>
 <body class="style-body">
@@ -19,7 +19,7 @@
   <div id="map"></div>
   <script>
   window.districtStats = [];
-  fetch('./districts.json')
+  fetch('districts.json')
   .then(res => res.json())
   .then(data => {
     window.districtStats = data;
