@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" href="./css/style_calc.css">
+  <meta charset="UTF-8">
+  <title>Калькулятор</title>
+</head>
+<body>
+  <header class="style-header">
+  <ul>
+    <li> <a href="index.html">карта</a> </li>
+    <li> <a href="calculator.html">калькулятор</a> </li>
+    <li> <a href="about.html">таблица</a> </li>
+  </ul>
+  </header>
+
+<main>
+    <div class="form-grid">
+      <label>pH <input type="number" name="ph" step="any"></label>
+      <label>Total alkalinity <input type="number" name="total_alka" step="any"></label>
+      <label>Carbonate <input type="number" name="carbonate" step="any"></label>
+      <label>Hardness <input type="number" name="hardness" step="any"></label>
+      <label>Cyanuric Acid <input type="number" name="cyan_acid" step="any"></label>
+      <label>Copper <input type="number" name="copper" step="any"></label>
+      <label>Mercury <input type="number" name="mercury" step="any"></label>
+      <label>Total chlorine <input type="number" name="total_chlorine" step="any"></label>
+      <label>Free chlorine <input type="number" name="free_chlorine" step="any"></label>
+      <label>Bromine <input type="number" name="bromine" step="any"></label>
+      <label>Nitrate <input type="number" name="nitrate" step="any"></label>
+      <label>Nitrite <input type="number" name="nitrite" step="any"></label>
+      <label>Iron <input type="number" name="iron" step="any"></label>
+      <label>Chromium <input type="number" name="chromium" step="any"></label>
+      <label>Lead <input type="number" name="lead" step="any"></label>
+      <label>Fluoride <input type="number" name="fluoride" step="any"></label>
+    </div>
+    <button type="submit">Отправить</button>
+    <div id="result"></div>
+  <div class="description">
+      <h1>Категории опасности</h1>
+
+  <section>
+    <h2>1. Лёгкая</h2>
+    <p><strong>Описание:</strong> вещества, не оказывающие серьёзного воздействия на здоровье человека при умеренных колебаниях. В основном влияют на вкус, запах и внешний вид воды.</p>
+    <p><strong>Показатели:</strong></p>
+    <ul>
+      <li>Total Alkalinity</li>
+      <li>Carbonate</li>
+      <li>Hardness</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. Средняя</h2>
+    <p><strong>Описание:</strong> вещества, способные вызвать дискомфорт или вред при значительном отклонении от нормы. При умеренном превышении редко представляют угрозу здоровью, но влияют на работу систем водоочистки и состояние кожи.</p>
+    <p><strong>Показатели:</strong></p>
+    <ul>
+      <li>Cyanuric Acid</li>
+      <li>pH</li>
+      <li>Total Chlorine</li>
+      <li>Free Chlorine</li>
+      <li>Bromine</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. Сильная</h2>
+    <p><strong>Описание:</strong> токсичные вещества, опасные даже при небольшом превышении нормы. Могут вызывать острые отравления и поражения органов, а также быть смертельно опасными.</p>
+    <p><strong>Показатели:</strong></p>
+    <ul>
+      <li>Copper</li>
+      <li>Mercury</li>
+      <li>Nitrate</li>
+      <li>Nitrite</li>
+      <li>Iron</li>
+      <li>Chromium</li>
+      <li>Lead</li>
+      <li>Fluoride</li>
+    </ul>
+  </section>
+
+  <h1 style="padding-top: 15;">Алгоритм высчитавания качества воды</h1>
+
+  <section class="calc">
+    <h3>Баллы по категориям</h3>
+    <ul>
+      <li>Лёгкая = 4 б.</li>
+      <li>Средняя = 7 б.</li>
+      <li>Сильная = 10 б.</li>
+    </ul>
+
+    <h3>Формула баллов для каждого вещества</h3>
+    <p>При попадании в промежут нормы вещество получает максимальный балл.</p>
+    <p>При попадании в смертельный промежут (если предусмотрен) - 0 баллов.</p>
+    <p>При отклонении от нормы:</p>
+    <pre>x = | s - y | / step</pre>
+    <p>где:</p>
+    <ul>
+      <li><strong>s</strong> - нижняя или верхняя граница нормы</li>
+      <li><strong>y</strong> - значение вещества в воде</li>
+      <li><strong>step</strong> - шаг для определения баллов при отклонении от нормы</li>
+    </ul>
+  </section>
+
+  <section class="levels">
+    <h3>Оценка качества воды</h3>
+      <ul>
+        <li class="excellent">95% &lt; T - отличная</li>
+        <li class="good">90% &lt; T - хорошая</li>
+        <li class="normal">80% &lt; T - нормальная</li>
+        <li class="bad">70% &lt; T - плохая</li>
+        <li class="terrible">70% &gt; T - ужасная</li>
+      </ul>
+  </section>
+
+  <p style="color: #ff0000; font-size: 20px; text-align: center;">Вce рассчеты выполнены в рамках СанПин!</p>
+  </div>
+</main>
+
+<script>
+  const result = document.getElementById('result');
+  const button = document.querySelector('button');
+
+  const data_calcul = {
+    "total_alka": [0.5, 1.5, 0.5, -1, -1],
+    "carbonate": [50, 120, 10, -1, -1],
+    "hardness": [20, 50, 75, -1, -1],
+    "cyan_acid": [0, 50, 2, 64, -1],
+    "ph": [6.5, 8.4, 0.1, 11, 4],
+    "total_chlorine": [0, 1, 0.3, 4, -1],
+    "free_chlorine": [0, 0.5, 0.1, 1.5, -1],
+    "bromine": [0, 0.2, 0.5, 5, -1],
+    "copper": [0, 1, 0.05, 1.3, -1],
+    "mercury": [0, 0, 0.00001, 0.0005, -1],
+    "nitrate": [0, 10, 3, 50, -1],
+    "nitrite": [0, 1, 0.3, 3, -1],
+    "iron": [0, 0, 0.05, 0.5, -1],
+    "chromium": [0, 2, 0.1, 3, -1],
+    "lead": [0, 0, 0.01, 0.1, -1],
+    "fluoride": [0, 4, 0.1, 5, -1],
+  };
+
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const inputs = document.querySelectorAll('input');
+    const data = {};
+    let max_total = 127;
+    let total = 127;
+    const weak = ["total_alka", "carbonate", "hardness"];
+    const med = ["ph", "cyan_acid", "total_chlorine", "free_chlorine", "bromine"];
+    const strong = ["copper", "mercury", "nitrate", "nitrite", "iron", "chromium", "lead", "fluoride"];
+
+    inputs.forEach(input => {
+      data[input.name] = parseFloat(input.value);
+    });
+    const spisok_dead = [];
+    for (const key in data) {
+      const value = data[key];
+      const data_key = data_calcul[key];
+      if (!data_key) {
+        console.warn('Нет эталона для', key);
+        continue;
+      }
+      const [short, high, step, dead_high, dead_short] = data_key;
+      let point = 0;
+      if (weak.includes(key)) point = 4;
+      else if (med.includes(key)) point = 7;
+      else if (strong.includes(key)) point = 10;
+      else {
+        console.warn('Неизвестная категория для', key);
+        continue;
+      }
+      if (Number.isNaN(value)){
+        total -= point;
+        max_total -= point;
+        console.warn("NaN value");
+        continue;
+      }
+      if (value >= short && value <= high) continue;
+      if ((dead_short !== -1 && value <= dead_short) || (dead_high !== -1 && value >= dead_high)) {
+        spisok_dead.push(key);
+        total -= point;
+        continue;
+      }
+      let units;
+      if (value < short) units = Math.abs(short - value) / step;
+      else units = Math.abs(value - high) / step;
+
+      const penalty = Math.min(point, units);
+      total -= penalty;
+    }
+
+    if (max_total == 0){
+      result.innerHTML = "Вы ничего не ввели :(";
+      result.style.color = "#ffffff"
+    }
+    else if (spisok_dead.length > 0) {
+      result.innerHTML = "Смертельная доза: " + spisok_dead.join(', ') + "<br>Результат: 0" + " из " + max_total;
+      result.style.color = "#ff0000"
+    } else {
+      let style_color = NaN;
+      let text = "";
+      if (total >= (Math.round(max_total * 0.95))) {
+        text = "Отличная вода";
+        style_color = "excellent";
+      } else if (total >= (Math.round(max_total * 0.90))) {
+        text = "Хорошая вода";
+        style_color = "good";
+      } else if (total >= (Math.round(max_total * 0.80))) {
+        text = "Нормальная вода";
+        style_color = "normal";
+      } else if (total >= (Math.round(max_total * 0.70))) {
+        text = "Плохая вода";
+        style_color = "bad";
+      } else {
+        text = "Ужасная вода";
+        style_color = "terrible";
+      }
+      total = Math.round(Math.max(0, Math.round(total * 100) / 100));
+      result.innerHTML = text + "<br>Результат: " + total + " из " + max_total;
+      if (style_color === "excellent") result.style.color = "#00ff00";
+      else if (style_color === "good") result.style.color = "#7fff00";
+      else if (style_color === "normal") result.style.color = "#ffff00";
+      else if (style_color === "bad") result.style.color = "#ff7f00";
+      else if (style_color === "terrible") result.style.color = "#ff0000";
+    }
+  });
+</script>
+</body>
+</html>

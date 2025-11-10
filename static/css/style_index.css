@@ -1,0 +1,63 @@
+*{ box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.style-header {
+  background-color: #111;
+  color: white;
+  padding: 12px 0;
+}
+
+.style-header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.style-header li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 32px;
+  transition: color 0.2s ease;
+}
+
+.style-header li a:hover {
+  color: #00ff91;
+}
+
+#map { width:100%; height:94vh; }
+
+.maplibregl-popup {
+  max-width: 300px !important;
+  min-width: 100px !important;
+  padding: 20px !important;
+  background-color: #1e1e1e !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  border-radius: 1px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.maplibregl-popup-content h1,
+.maplibregl-popup-content h2 {
+  color: #000000 !important;
+  margin: 0 0 8px 0;
+}
+
+.maplibregl-popup-close-button {
+  color: #ff0000 !important;
+  font-size: 18px !important;
+  background: transparent !important;
+  border: none !important;
+}

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Карта</title>
+<link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet"/>
+<link rel="stylesheet" href="./css/style_index.css">
+<script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+</head>
+<body class="style-body">
+<header class="style-header">
+  <ul>
+    <li> <a href="index.html">карта</a> </li>
+    <li> <a href="calculator.html">калькулятор</a> </li>
+    <li> <a href="about.html">таблица</a> </li>
+  </ul>
+</header>
+<main>
+  <div id="map"></div>
+  <script>
+  window.districtStats = [];
+  fetch('./districts.json')
+  .then(res => res.json())
+  .then(data => {
+    window.districtStats = data;
+  })
+  .catch(err => console.error('json not found', err));
+
+  const map = new maplibregl.Map({
+    container: 'map',
+    style: {
+      version: 8,
+      sources: {
+        'osm': {
+          type: 'raster',
+          tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+          tileSize: 256,
+          attribution: '© OpenStreetMap contributors'
+        }
+      },
+      layers: [{ id:'osm', type:'raster', source:'osm' }]
+    },
+    center: [65.5272, 57.1522], 
+    zoom: 12,
+    maxZoom: 18,
+    minZoom: 10,
+    maxBounds: [ [65.30, 57.05], [65.80, 57.25] ] 
+  });
+
+
+  const districts = {
+    "type": "FeatureCollection",
+    "features": [
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                65.55196311552857,
+                57.14711353639055
+              ],
+              [
+                65.55975060397128,
+                57.14307301564287
+              ],
+              [
+                65.58473866608202,
+                57.15756896122511
+              ],
+              [
+                65.57747391420912,
+                57.16136186662658
+              ],
+              [
+                65.55196311552857,
+                57.14711353639055
+              ]
+            ]
+          ] },
+        "properties": { "name": "Максима_Горького" } },
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [
+          [
+            [
+              65.5374715963344,
+              57.1404681219457
+            ],
+            [
+              65.54628300611077,
+              57.12054013672798
+            ],
+            [
+              65.54829284736505,
+              57.12131562875808
+            ],
+            [
+              65.54029645670485,
+              57.13969713352725
+            ],
+            [
+              65.5374715963344,
+              57.1404681219457
+            ]
+          ]
+        ]},
+        "properties": { "name": "Депутатская" } },
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [[
+            [
+              65.62191260893127,
+              57.10071746607758
+            ],
+            [
+              65.64896281998193,
+              57.08999805375987
+            ],
+            [
+              65.65379788186075,
+              57.0947074046901
+            ],
+            [
+              65.62631207965055,
+              57.104408201894216
+            ],
+            [
+              65.62191260893127,
+              57.10071746607758
+            ]
+          ]
+        ] },
+        "properties": { "name": "Войновка" } },
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [
+          [
+            [
+              65.57029199851004,
+              57.149134421490885
+            ],
+            [
+              65.60115315841853,
+              57.13248641908396
+            ],
+            [
+              65.60540731279804,
+              57.13497089143951
+            ],
+            [
+              65.57482320160094,
+              57.15149246368762
+            ],
+            [
+              65.57029199851004,
+              57.149134421490885
+            ]
+          ]
+        ] },
+        "properties": { "name": "50_лет_Октября" } },
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [
+          [
+            [
+              65.55107817648116,
+              57.16969717092266
+            ],
+            [
+              65.54867175241776,
+              57.17852814745132
+            ],
+            [
+              65.5363337502935,
+              57.17446543777223
+            ],
+            [
+              65.54095063978531,
+              57.1688735066036
+            ],
+            [
+              65.55107817648116,
+              57.16969717092266
+            ]
+          ]
+        ] },
+        "properties": { "name": "Зарека" } },
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [
+          [
+            [
+              65.5626538794032,
+              57.15602602598864
+            ],
+            [
+              65.5420481335212,
+              57.1599513300489
+            ],
+            [
+              65.54136078262368,
+              57.158064000954965
+            ],
+            [
+              65.55989241585266,
+              57.15450481996538
+            ],
+            [
+              65.5626538794032,
+              57.15602602598864
+            ]
+          ]
+        ] },
+        "properties": { "name": "Комсомольская" } },
+      { "type": "Feature", "geometry": { "type": "Polygon",
+          "coordinates": [
+          [
+            [
+              65.52513977406801,
+              57.15842728755234
+            ],
+            [
+              65.52460246811623,
+              57.1587447715485
+            ],
+            [
+              65.52286223838695,
+              57.15830551214583
+            ],
+            [
+              65.52386467486579,
+              57.15764008944936
+            ],
+            [
+              65.52513977406801,
+              57.15842728755234
+            ]
+          ]
+        ] },
+        "properties": { "name": "Красина" } }
+    ]
+  };
+
+
+  map.on('load', () => {
+    map.addSource('districts', { type: 'geojson', data: districts });
+    map.addLayer({
+      id: 'districts-layer',
+      type: 'fill',
+      source: 'districts',
+      paint: {
+        'fill-color': ['match', ['get','name'],
+          'Депутатская','#ff0000',
+          'Войновка','#ff8800',
+          'Максима_Горького','#00ff00',
+          '50_лет_Октября','#0000ff',
+          'Зарека', '#FFFF00',
+          'Комсомольская', '#66CDAA',
+          'Красина', '#8B008B',
+          '#000000'],
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#000000'
+      }
+    });
+
+    map.on('mouseenter', 'districts-layer', () => map.getCanvas().style.cursor = 'pointer');
+    map.on('mouseleave', 'districts-layer', () => map.getCanvas().style.cursor = '');
+
+    const popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true });
+
+      const statsMap = {};
+      window.districtStats.forEach(d => {
+          statsMap[d.name] = d;
+      });
+
+      map.on("click", "districts-layer", (e) => {
+          if (!e.features || e.features.length === 0) {
+          console.log("No features found at click location");
+          return;
+          }
+          const feature = e.features[0];
+          const districtName = feature.properties.name;
+          const stats = statsMap[districtName];
+          console.log("Clicked district:", districtName, "Stats:", stats);
+          if (stats) {
+          popup
+              .setLngLat(e.lngLat)
+              .setHTML(`<h1>${districtName.replace(/_/g, ' ')}</h1><h2>pH: ${stats.ph}<br>Total alkalinity: ${stats.total_alka}<br>Carbonate: ${stats.carbonate}<br>Hardness: ${stats.hardness}<br>Cyanuric Acid: ${stats.cyan_acid}<br>Copper: ${stats.copper}<br>Mercury: ${stats.mercury}<br>Total chlorine: ${stats.total_clhorine}<br>Free chlorine: ${stats.free_clhorine}<br>Bromine: ${stats.bromine}<br>Nitrate: ${stats.nitrate}<br>Nitrite: ${stats.nitrite}<br>Iron: ${stats.iron}<br>Chromium: ${stats.chromium}<br>Lead: ${stats.lead}<br>Fluoride: ${stats.fluoride}</h2>`)
+              .addTo(map);
+          } else {
+          console.log("No stats found for district:", districtName);
+          }
+      });
+  });
+  </script>
+</main>
+</body>
+</html>
